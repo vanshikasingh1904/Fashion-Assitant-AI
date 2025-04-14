@@ -9,7 +9,8 @@ from ui_styles import load_ui_styles, render_header, render_welcome_message, ren
 # Initialize OpenAI client with API key from Streamlit secrets
 client = OpenAI(
     api_key=st.secrets["OPENAI_API_KEY"],
-    base_url="https://api.openai.com/v1"
+    base_url="https://api.openai.com/v1",
+    http_client=None  # Explicitly set to None to avoid proxies error
 )
 
 # Page configuration and styling
