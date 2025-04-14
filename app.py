@@ -18,8 +18,7 @@ except Exception as e:
 
 st.write("2. Setting up OpenAI client...")
 try:
-    os.environ["OPENAI_API_KEY"] = api_key
-    client = OpenAI(api_key=api_key)
+    client = OpenAI()  # Let it use the environment variable
     st.write("✓ OpenAI client initialized successfully")
 except Exception as e:
     st.error(f"Failed to initialize OpenAI client: {str(e)}")
