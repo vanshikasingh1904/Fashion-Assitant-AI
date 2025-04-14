@@ -7,11 +7,13 @@ import base64
 from ui_styles import load_ui_styles, render_header, render_welcome_message, render_section_header, render_analysis_section
 
 # Initialize OpenAI client with API key from Streamlit secrets
-client = OpenAI(
-    api_key=st.secrets["OPENAI_API_KEY"],
-    base_url="https://api.openai.com/v1",
-    http_client=None  # Explicitly set to None to avoid proxies error
-)
+try:
+    api_key = st.secrets["OPENAI_API_KEY"]
+    client = OpenAI()  # Will use the API key from environment
+    os.environ["OPENAI_API_KEY"] = api_key  # Set environment variable
+except Exception as e:
+    st.error(f"Error initializing OpenAI client. Please check your API key in Streamlit secrets.")
+    st.stop()
 
 # Page configuration and styling
 st.set_page_config(page_title="AI Stylist Assistant", layout="wide")
