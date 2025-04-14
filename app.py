@@ -7,7 +7,10 @@ import base64
 from ui_styles import load_ui_styles, render_header, render_welcome_message, render_section_header, render_analysis_section
 
 # Initialize OpenAI client with API key from Streamlit secrets
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = OpenAI(
+    api_key=st.secrets["OPENAI_API_KEY"],
+    base_url="https://api.openai.com/v1"
+)
 
 # Page configuration and styling
 st.set_page_config(page_title="AI Stylist Assistant", layout="wide")
