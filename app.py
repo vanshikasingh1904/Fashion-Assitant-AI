@@ -6,13 +6,23 @@ import io
 import base64
 from ui_styles import load_ui_styles, render_header, render_welcome_message, render_section_header, render_analysis_section
 
-# Initialize OpenAI client with API key from Streamlit secrets
+# Debug information
+st.write("Debug Info:")
+st.write("1. Checking for API key in secrets...")
 try:
     api_key = st.secrets["OPENAI_API_KEY"]
-    client = OpenAI()  # Will use the API key from environment
-    os.environ["OPENAI_API_KEY"] = api_key  # Set environment variable
+    st.write("✓ API key found in secrets")
 except Exception as e:
-    st.error(f"Error initializing OpenAI client. Please check your API key in Streamlit secrets.")
+    st.error(f"Could not find API key in secrets: {str(e)}")
+    st.stop()
+
+st.write("2. Setting up OpenAI client...")
+try:
+    os.environ["OPENAI_API_KEY"] = api_key
+    client = OpenAI(api_key=api_key)
+    st.write("✓ OpenAI client initialized successfully")
+except Exception as e:
+    st.error(f"Failed to initialize OpenAI client: {str(e)}")
     st.stop()
 
 # Page configuration and styling
