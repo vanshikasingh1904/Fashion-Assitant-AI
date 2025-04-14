@@ -1,10 +1,16 @@
 import streamlit as st
+
+# Page configuration and styling must be first
+st.set_page_config(page_title="AI Stylist Assistant", layout="wide")
+
 from openai import OpenAI
 import os
 from PIL import Image
 import io
 import base64
 from ui_styles import load_ui_styles, render_header, render_welcome_message, render_section_header, render_analysis_section
+
+load_ui_styles()
 
 # Debug information
 st.write("Debug Info:")
@@ -23,10 +29,6 @@ try:
 except Exception as e:
     st.error(f"Failed to initialize OpenAI client: {str(e)}")
     st.stop()
-
-# Page configuration and styling
-st.set_page_config(page_title="AI Stylist Assistant", layout="wide")
-load_ui_styles()
 
 def analyze_images(images, user_description=None):
     # Convert images to base64
